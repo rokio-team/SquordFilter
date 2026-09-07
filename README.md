@@ -3,7 +3,9 @@
 [![npm](https://img.shields.io/npm/v/@lofcz/deepfilternet-web?color=blue&label=%40lofcz%2Fdeepfilternet-web&style=flat-square)](https://www.npmjs.com/package/@lofcz/deepfilternet-web)
 
 > **This is a fork of [Rikorose/DeepFilterNet](https://github.com/Rikorose/DeepFilterNet).** It merges
-> [PR #695](https://github.com/Rikorose/DeepFilterNet/pull/695) (tract 0.21 → 0.23, WASM SIMD kernels)
+> [PR #695](https://github.com/Rikorose/DeepFilterNet/pull/695) (tract 0.21 → 0.23, WASM SIMD kernels),
+> [PR #683](https://github.com/Rikorose/DeepFilterNet/pull/683) (wasm32 DSP hot-loop SIMD), and
+> [PR #687](https://github.com/Rikorose/DeepFilterNet/pull/687) (rustfft/realfft `wasm_simd`),
 > and publishes `@lofcz/deepfilternet-web` from GitHub Actions (`.github/workflows/release.yml`) with
 > npm provenance via trusted publishing. `bootstrap-publish.sh` is the one-time first publish.
 > The browser package lives in `packages/web`. Everything below is upstream's README.

@@ -2,7 +2,7 @@
 
 Browser build of [DeepFilterNet3](https://github.com/Rikorose/DeepFilterNet) (`libDF` wasm feature).
 
-This package is the `lofcz/DeepFilterNet` fork: tract 0.23 (WASM SIMD kernels, [upstream #695](https://github.com/Rikorose/DeepFilterNet/pull/695)) so a 480-sample / 48 kHz frame stays under a millisecond in V8. DeepFilterNet3 weights are baked into the wasm.
+This package is the `lofcz/DeepFilterNet` fork: tract 0.23 (WASM SIMD kernels, [upstream #695](https://github.com/Rikorose/DeepFilterNet/pull/695)), DSP hot-loop SIMD ([#683](https://github.com/Rikorose/DeepFilterNet/pull/683)), and rustfft/realfft `wasm_simd` ([#687](https://github.com/Rikorose/DeepFilterNet/pull/687)). DeepFilterNet3 weights are baked into the wasm.
 
 ## Install
 

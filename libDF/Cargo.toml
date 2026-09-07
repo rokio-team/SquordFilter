@@ -94,8 +94,8 @@ wasm = [
 hdf5-static = ["hdf5?/static"]
 
 [dependencies]
-rustfft = "^6.1.0"
-realfft = "^3.1.0"
+rustfft = { version = "^6.1.0", features = ["wasm_simd"] }
+realfft = { version = "^3.5", features = ["wasm_simd"] }
 itertools = "0.12"
 num-complex = { version = "^0.4", features = ["serde"] }
 log = { version = "0.4", features = ["std"], optional = true }

@@ -38,6 +38,7 @@ npx esbuild src/worklet.ts \
   --bundle \
   --format=iife \
   --platform=browser \
+  --define:import.meta.url='""' \
   --outfile=dist/worklet.js
 
 cp "$PKG/pkg/df_bg.wasm" "$PKG/dist/df_bg.wasm"

@@ -2,6 +2,12 @@
 *.wav
 *.png
 *.pdf
+node_modules/
+packages/web/pkg/
+packages/web/LICENSE
+packages/web/LICENSE-MIT
+packages/web/LICENSE-APACHE
+.npmrc
 assets/hostbs.ini
 .cache*
 out/

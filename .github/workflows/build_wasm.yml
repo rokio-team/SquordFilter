@@ -2,12 +2,6 @@ name: Build WASM Package
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
@@ -30,7 +24,9 @@ jobs:
         run: cargo install wasm-pack
 
       - name: Build wasm package
-        run: wasm-pack build libDF --target no-modules --features wasm
+        env:
+          RUSTFLAGS: '-C target-feature=+simd128 --cfg getrandom_backend="wasm_js"'
+        run: wasm-pack build libDF --target web --release --no-opt -- --features wasm --no-default-features
 
       - uses: actions/upload-artifact@v4
         with:

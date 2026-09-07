@@ -10,9 +10,8 @@ pub struct DFState(crate::tract::DfTract);
 
 #[wasm_bindgen]
 impl DFState {
-    fn new(model_bytes: &[u8], channels: usize, atten_lim: f32) -> Self {
+    fn new(df_params: DfParams, channels: usize, atten_lim: f32) -> Self {
         let r_params = RuntimeParams::default_with_ch(channels).with_atten_lim(atten_lim);
-        let df_params = DfParams::from_bytes(model_bytes).expect("Could not load model from path");
         let m =
             DfTract::new(df_params, &r_params).expect("Could not initialize DeepFilter runtime.");
         DFState(m)
@@ -36,8 +35,23 @@ pub unsafe fn df_create(
     // channels: usize,
     atten_lim: f32,
 ) -> *mut DFState {
-    let df = DFState::new(model_bytes, 1, atten_lim);
+    let df = DFState::new(DfParams::from_bytes(model_bytes).expect("Could not load model"), 1, atten_lim);
     Box::into_raw(df.boxed())
+}
+
+/// Create a DeepFilterNet Model using the DeepFilterNet3 weights baked into this build.
+#[wasm_bindgen]
+pub unsafe fn df_create_default(atten_lim: f32) -> *mut DFState {
+    let df = DFState::new(DfParams::default(), 1, atten_lim);
+    Box::into_raw(df.boxed())
+}
+
+/// Free a DeepFilterNet Model created via df_create() or df_create_default().
+#[wasm_bindgen]
+pub unsafe fn df_free(st: *mut DFState) {
+    if !st.is_null() {
+        drop(Box::from_raw(st));
+    }
 }
 
 /// Get DeepFilterNet frame size in samples.

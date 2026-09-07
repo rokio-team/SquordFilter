@@ -2,13 +2,6 @@ name: Test PyPi
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["publish-pypi-wheels"]
-    branches: [main]
-    types:
-      - completed
-  schedule:
-    - cron: '0 18 * * 0'
 
 jobs:
   test-df-output:

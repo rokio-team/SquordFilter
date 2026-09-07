@@ -1,0 +1,56 @@
+{
+  "name": "@lofcz/deepfilternet-web",
+  "version": "0.1.0",
+  "description": "DeepFilterNet3 speech enhancement for the browser — WASM SIMD build of libDF (tract 0.23)",
+  "type": "module",
+  "license": "MIT OR Apache-2.0",
+  "homepage": "https://github.com/lofcz/DeepFilterNet",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lofcz/DeepFilterNet.git",
+    "directory": "packages/web"
+  },
+  "bugs": {
+    "url": "https://github.com/lofcz/DeepFilterNet/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./worklet": "./dist/worklet.js",
+    "./df_bg.wasm": "./dist/df_bg.wasm"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "LICENSE-APACHE",
+    "LICENSE-MIT"
+  ],
+  "keywords": [
+    "deepfilternet",
+    "speech-enhancement",
+    "noise-suppression",
+    "wasm",
+    "audioworklet",
+    "webrtc"
+  ],
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "clean": "rm -rf dist pkg"
+  },
+  "devDependencies": {
+    "@types/audioworklet": "^0.0.87",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.8.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -141,6 +141,9 @@ rstest = "0.19"
 env_logger = "0.11"
 log = { version = "0.4", features = ["std"] }
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
 [package.metadata.capi.header]
 name = "deep_filter"
 subdirectory = "deep_filter"

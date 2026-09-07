@@ -6,9 +6,6 @@ on:
       tag:
         description: "Which tag to deploy as:"
         required: true
-  push:
-    tags:
-      - "v*[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   create-release:

@@ -1,4 +1,14 @@
 # DeepFilterNet
+
+[![npm](https://img.shields.io/npm/v/@lofcz/deepfilternet-web?color=blue&label=%40lofcz%2Fdeepfilternet-web&style=flat-square)](https://www.npmjs.com/package/@lofcz/deepfilternet-web)
+
+> **This is a fork of [Rikorose/DeepFilterNet](https://github.com/Rikorose/DeepFilterNet).** It merges
+> [PR #695](https://github.com/Rikorose/DeepFilterNet/pull/695) (tract 0.21 → 0.23, WASM SIMD kernels)
+> and publishes `@lofcz/deepfilternet-web` from GitHub Actions (`.github/workflows/release.yml`) with
+> npm provenance via trusted publishing. `bootstrap-publish.sh` is the one-time first publish.
+> The browser package lives in `packages/web`. Everything below is upstream's README.
+
+# DeepFilterNet
 A Low Complexity Speech Enhancement Framework for Full-Band Audio (48kHz) using on Deep Filtering.
 
 ![deepfilternet3](https://user-images.githubusercontent.com/16517898/225623209-a54fea75-ca00-404c-a394-c91d2d1146d2.svg)

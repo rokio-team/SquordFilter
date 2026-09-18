@@ -11,7 +11,12 @@ pub struct DFState(crate::tract::DfTract);
 #[wasm_bindgen]
 impl DFState {
     fn new(df_params: DfParams, channels: usize, atten_lim: f32) -> Self {
-        let r_params = RuntimeParams::default_with_ch(channels).with_atten_lim(atten_lim);
+        // The library default runs frames with an LSNR between 20 and 30 dB through the ERB mask
+        // alone, which drops the low bins the deep-filter stage is trained to rebuild; keeping the
+        // DF stage on wherever the ERB stage runs is what the native CLI effectively does.
+        let r_params = RuntimeParams::default_with_ch(channels)
+            .with_atten_lim(atten_lim)
+            .with_thresholds(-10., 30., 30.);
         let m =
             DfTract::new(df_params, &r_params).expect("Could not initialize DeepFilter runtime.");
         DFState(m)
@@ -69,6 +74,20 @@ pub unsafe fn df_get_frame_length(st: *mut DFState) -> usize {
 pub unsafe fn df_set_atten_lim(st: *mut DFState, lim_db: f32) {
     let state = st.as_mut().expect("Invalid pointer");
     state.0.set_atten_lim(lim_db)
+}
+
+/// Set the local-SNR thresholds that decide which stages run for a frame.
+///
+/// Args:
+///     - min_db: below this the frame is treated as noise only and zeroed.
+///     - max_erb_db: above this the frame passes through untouched.
+///     - max_df_db: above this the deep-filter stage is skipped; keep it >= max_erb_db.
+#[wasm_bindgen]
+pub unsafe fn df_set_thresholds(st: *mut DFState, min_db: f32, max_erb_db: f32, max_df_db: f32) {
+    let state = st.as_mut().expect("Invalid pointer");
+    state.0.min_db_thresh = min_db;
+    state.0.max_db_erb_thresh = max_erb_db;
+    state.0.max_db_df_thresh = max_df_db;
 }
 
 /// Set DeepFilterNet post filter beta. A beta of 0 disables the post filter.

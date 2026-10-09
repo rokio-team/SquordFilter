@@ -19,6 +19,9 @@ This fork is not affiliated with or endorsed by the DeepFilterNet authors.
   between 20 and 30 dB skip the deep-filter stage and lose the low bins that stage is trained to
   rebuild; on real speech with moderate noise that dropped about a third of the voice frames by
   more than 10 dB.
+- `libDF/src/wasm.rs` (0.2.0): the state keeps the local SNR the model computes for each frame,
+  and `df_last_lsnr` returns the last one, so Squord's voice gate can tell speech from a keyboard
+  click. Nothing about the filtering changes.
 - `squord/verify.mjs`: a regression check that runs real speech plus noise through the built wasm
   and fails if the voice loses more than 1 dB or the noise is not reduced.
 - `.github/workflows/squordfilter.yml`: builds the wasm, runs the check, and publishes a release on

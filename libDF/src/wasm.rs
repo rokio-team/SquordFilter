@@ -6,7 +6,7 @@ use wasm_bindgen::prelude::*;
 use crate::tract::*;
 
 #[wasm_bindgen]
-pub struct DFState(crate::tract::DfTract);
+pub struct DFState(crate::tract::DfTract, f32);
 
 #[wasm_bindgen]
 impl DFState {
@@ -19,7 +19,7 @@ impl DFState {
             .with_thresholds(-10., 30., 30.);
         let m =
             DfTract::new(df_params, &r_params).expect("Could not initialize DeepFilter runtime.");
-        DFState(m)
+        DFState(m, 0.)
     }
     fn boxed(self) -> Box<DFState> {
         Box::new(self)
@@ -116,6 +116,13 @@ pub unsafe fn df_process_frame(st: *mut DFState, input: &[f32]) -> js_sys::Float
 
     let mut output = Array2::zeros((1, state.0.hop_size));
     let output_view = output.view_mut();
-    let _lsnr = state.0.process(input, output_view).expect("Failed to process DF frame");
+    state.1 = state.0.process(input, output_view).expect("Failed to process DF frame");
     js_sys::Float32Array::from(output.as_slice().unwrap())
+}
+
+/// Local SNR in dB the model measured on the last processed frame; a voice-activity cue for the host.
+#[wasm_bindgen]
+pub unsafe fn df_last_lsnr(st: *mut DFState) -> f32 {
+    let state = st.as_mut().expect("Invalid pointer");
+    state.1
 }
